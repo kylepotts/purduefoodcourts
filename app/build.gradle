@@ -1,0 +1,27 @@
+apply plugin: 'android'
+dependencies {
+    compile 'com.squareup.picasso:picasso:2.2.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+    compile 'mobi.parchment:parchment:1.6.6@aar'
+    compile 'com.github.gabrielemariotti.cards:library:1.6.0'
+    compile "com.android.support:support-v4:18.0.+"
+}
+
+android {
+
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
+
+
+    defaultConfig {
+        versionCode 1
+        versionName "1.0.0"
+        minSdkVersion 16
+        targetSdkVersion 19
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
