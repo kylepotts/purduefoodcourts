@@ -1,5 +1,8 @@
 package com.kptech.purduefoodcourts.app;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.kptech.purduefoodcourts.app.Data.APIResponse;
@@ -308,7 +311,7 @@ public class PurdueAPIParser {
     ArrayList<String> listDataHeaderDinner;
     HashMap<String, List<String>> listDataChildDinner;
 
-    public PurdueAPIParser(String xml) throws JSONException {
+    public PurdueAPIParser(String xml, Activity a) throws JSONException {
         this.xml = xml;
         rootObject = new JSONObject(xml);
         listDataHeaderBreakfast = new ArrayList<String>();
@@ -477,8 +480,6 @@ public class PurdueAPIParser {
 
 
     }
-
-
 
 
 }

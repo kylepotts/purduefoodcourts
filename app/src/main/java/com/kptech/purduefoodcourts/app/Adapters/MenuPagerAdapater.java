@@ -12,6 +12,7 @@ import android.widget.*;
 import com.kptech.purduefoodcourts.app.Data.APIResponse;
 import com.kptech.purduefoodcourts.app.Fragments.MenuFragment;
 import com.kptech.purduefoodcourts.app.Fragments.TestFragment;
+import com.kptech.purduefoodcourts.app.Interfaces.OnMenuDownloaded;
 import com.kptech.purduefoodcourts.app.PurdueAPIParser;
 
 import org.apache.http.HttpResponse;
@@ -35,6 +36,7 @@ public class MenuPagerAdapater extends FragmentPagerAdapter {
     private Activity context;
     String location;
     String mealType;
+    OnMenuDownloaded onMenuDownloadedListener;
     public MenuPagerAdapater(FragmentManager fm) {
         super(fm);
     }
@@ -44,11 +46,11 @@ public class MenuPagerAdapater extends FragmentPagerAdapter {
         this.context = a;
         this.location = location;
         this.mealType = mealType;
+
     }
 
     @Override
     public Fragment getItem(int position) {
-        Log.d("debug", "creating new test fragment position = "+position);
         String mealType = null;
         switch(position){
             case 0:
@@ -64,7 +66,7 @@ public class MenuPagerAdapater extends FragmentPagerAdapter {
         TestFragment test = new TestFragment();
         Bundle args = new Bundle();
         args.putInt(test.ARG_OBJECT,position+1);
-        args.putString("Location",location);
+        args.putString("Location", location);
         args.putString("MealType",mealType);
         test.setArguments(args);
         return test;

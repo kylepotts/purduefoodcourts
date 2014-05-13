@@ -67,7 +67,6 @@ public class TestFragment extends android.support.v4.app.Fragment {
         String mealType = args.getString("MealType");
         expListView = (ExpandableListView) rootView.findViewById(R.id.lvExp);
         APIResponse r = getMenu(location,mealType);
-        Log.d("debug-size", r.getList().toString());
         listAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),r.getList(),r.getHash());
         expListView.setAdapter(listAdapter);
         return rootView;
@@ -89,7 +88,7 @@ public class TestFragment extends android.support.v4.app.Fragment {
                 String xml = getXmlFormUrl(mUrl);
                 PurdueAPIParser apiParser = null;
                 try {
-                     apiParser = new PurdueAPIParser(xml);
+                     apiParser = new PurdueAPIParser(xml,getActivity());
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
