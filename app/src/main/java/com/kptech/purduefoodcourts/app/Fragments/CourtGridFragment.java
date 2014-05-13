@@ -138,6 +138,7 @@ public class CourtGridFragment extends BaseFragment {
                 public void onClick(Card card, View view) {
                     Toast.makeText(getActivity(), "You Clicked " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT ).show();
                     Intent i = new Intent(getActivity(),MenuFragment.class);
+                    i.putExtra("Location",card.getCardHeader().getTitle());
                     getActivity().startActivity(i);
 
                 }

@@ -36,65 +36,19 @@ public class MenuFragment extends FragmentActivity {
     MenuPagerAdapater menuPagerAdapater;
     ViewPager mViewPager;
     public static  final String KEY_BREAKFAST = "Breakfast";
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
-    Activity a ;
+
 
     public void onCreate(Bundle b){
         super.onCreate(b);
         setContentView(R.layout.menu_fragment);
-        getMenu();
-        MenuPagerAdapater menuPagerAdapater = new MenuPagerAdapater(getSupportFragmentManager());
+        //getMenu();
+        String location = getIntent().getExtras().getString("Location");
+        String mealType = getIntent().getExtras().getString("MealType");
+        MenuPagerAdapater menuPagerAdapater = new MenuPagerAdapater(getSupportFragmentManager(),this, location, mealType);
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        //mViewPager.setAdapter(menuPagerAdapater);
+        mViewPager.setAdapter(menuPagerAdapater);
 
 
-    }
-
-
-    public void getMenu(){
-        final ProgressDialog progress =  ProgressDialog.show(this,"","Downloading",true);
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String url = "http://api.hfs.purdue.edu/menus/v1/locations/ford/05-09-2014";
-                String xml = getXmlFormUrl(url);
-                PurdueAPIParser apiParser = null;
-                try {
-                    apiParser = new PurdueAPIParser(xml);
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-                APIResponse lunchResponse = apiParser.getLunch();
-                listDataChild = lunchResponse.getHash();
-                listDataHeader = lunchResponse.getList();
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        progress.dismiss();
-                    }
-                });
-
-            }
-        });
-        thread.start();
-
-    }
-
-    public String getXmlFormUrl(String url){
-        HttpClient client = new DefaultHttpClient();
-        HttpGet get = new HttpGet(url);
-        String responseString = null;
-        try {
-            HttpResponse response = client.execute(get);
-            responseString = EntityUtils.toString(response.getEntity(), "UTF-8");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return responseString;
     }
 
 

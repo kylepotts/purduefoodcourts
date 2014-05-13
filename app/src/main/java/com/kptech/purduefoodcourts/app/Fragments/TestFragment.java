@@ -13,6 +13,8 @@ import com.kptech.purduefoodcourts.app.Data.APIResponse;
 import com.kptech.purduefoodcourts.app.PurdueAPIParser;
 import com.kptech.purduefoodcourts.app.R;
 
+import junit.framework.Test;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -28,7 +30,10 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,6 +48,12 @@ public class TestFragment extends android.support.v4.app.Fragment {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    String type;
+
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,70 +63,44 @@ public class TestFragment extends android.support.v4.app.Fragment {
         View rootView = inflater.inflate(
                 R.layout.test_fragment, container, false);
         Bundle args = getArguments();
+        String location = args.getString("Location");
+        String mealType = args.getString("MealType");
         expListView = (ExpandableListView) rootView.findViewById(R.id.lvExp);
-        prepareList();
-        listAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),listDataHeader,listDataChild);
+        APIResponse r = getMenu(location,mealType);
+        Log.d("debug-size", r.getList().toString());
+        listAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),r.getList(),r.getHash());
         expListView.setAdapter(listAdapter);
-        //getMenu();
         return rootView;
     }
 
-    public void prepareList() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
-
-        // Adding child data
-        listDataHeader.add("Top 250");
-        listDataHeader.add("Now Showing");
-        listDataHeader.add("Coming Soon..");
-
-        // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
-
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");
-
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
-
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
-    }
 
 
-    public void getMenu(){
+
+    public APIResponse getMenu(final String location, final String mealType){
         final ProgressDialog progress =  ProgressDialog.show(getActivity(),"","Downloading",true);
+        final APIResponse[] response = new APIResponse[1];
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String url = "http://api.hfs.purdue.edu/menus/v1/locations/ford/05-09-2014";
-                String xml = getXmlFormUrl(url);
+                DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                String date = "/"+df.format(Calendar.getInstance().getTime());
+                String mUrl = "http://api.hfs.purdue.edu/menus/v1/locations/"+location.toLowerCase()+date+"/";
+                Log.d("debug-url", mUrl);
+                String xml = getXmlFormUrl(mUrl);
                 PurdueAPIParser apiParser = null;
                 try {
                      apiParser = new PurdueAPIParser(xml);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
-                APIResponse lunchResponse = apiParser.getLunch();
-                listDataChild = lunchResponse.getHash();
-                listDataHeader = lunchResponse.getList();
+                if(mealType == "Breakfast"){
+                    response[0] = apiParser.getBreakfast();
+                } else if (mealType == "Lunch"){
+                    response[0] = apiParser.getLunch();
+                } else if (mealType == "Dinner"){
+                    response[0] = apiParser.getDinner();
+                }
+
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -127,6 +112,12 @@ public class TestFragment extends android.support.v4.app.Fragment {
             }
         });
         thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return response[0];
 
     }
 

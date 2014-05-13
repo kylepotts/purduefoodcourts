@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -299,16 +301,22 @@ import java.util.List;
 public class PurdueAPIParser {
     private String xml;
     private JSONObject rootObject;
-    List<String> listDataHeaderBreakfast;
+    ArrayList<String> listDataHeaderBreakfast;
     HashMap<String, List<String>> listDataChildBreakfast;
-    List<String> listDataHeaderLunch;
+    ArrayList<String> listDataHeaderLunch;
     HashMap<String, List<String>> listDataChildLunch;
-    List<String> listDataHeaderDinner;
+    ArrayList<String> listDataHeaderDinner;
     HashMap<String, List<String>> listDataChildDinner;
 
     public PurdueAPIParser(String xml) throws JSONException {
         this.xml = xml;
         rootObject = new JSONObject(xml);
+        listDataHeaderBreakfast = new ArrayList<String>();
+        listDataHeaderLunch = new ArrayList<String>();
+        listDataHeaderDinner = new ArrayList<String>();
+        listDataChildBreakfast = new HashMap<String, List<String>>();
+        listDataChildDinner = new HashMap<String, List<String>>();
+        listDataChildLunch = new HashMap<String, List<String>>();
     }
 
 
@@ -350,17 +358,52 @@ public class PurdueAPIParser {
     }
 
 
-    public void getItems(JSONArray array, String type){
+    public void getItems(JSONArray fullMenuResponse, String type){
+        // If we get an empty response, it probably means that the Dinning Court is not serving, or there is an error with the API (lets hope not)
+        if(fullMenuResponse.length() == 0){
+            Log.d("debug","not serving");
+            if(type.equals("Breakfast")) {
+                listDataHeaderBreakfast.add("Not Serving");
+                ArrayList<String> noResponse = new ArrayList<String>();
+                noResponse.add("It appears this dinning court is not serving any food currently");
+                String key = listDataHeaderBreakfast.get(0);
+                listDataChildBreakfast.put(key, noResponse);
+
+            }
+
+            if(type.equals("Lunch")){
+                listDataHeaderLunch.add("Not Serving");
+                ArrayList<String> noResponse = new ArrayList<String>();
+                noResponse.add("It appears this dinning court is not serving any food currently");
+                String key = listDataHeaderLunch.get(0);
+                listDataChildLunch.put(key, noResponse);
+            }
+
+            if(type.equals("Dinner")){
+                listDataHeaderDinner.add("Not Serving");
+                ArrayList<String> noResponse = new ArrayList<String>();
+                noResponse.add("It appears this dinning court is not serving any food currently");
+                String key = listDataHeaderDinner.get(0);
+                listDataChildDinner.put(key, noResponse);
 
 
-        for(int i=0; i<array.length(); i++){
+            }
+            return;
+        }
+
+        /*
+            Loop through the whole Menu
+         */
+        for(int i=0; i<fullMenuResponse.length(); i++){
             JSONObject station = null;
+            // A station object contains {"Name":"Station Name", "Items":[{"Name":"Pizza"},...]}
+            // The MenuResponse is an Array of these station objects, get them one by one
             try {
-                station = array.getJSONObject(i);
+                station = fullMenuResponse.getJSONObject(i);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            // Get the name of the station and the array of item objects it contains
             String name = null;
             JSONArray items = null;
             try {
@@ -369,15 +412,37 @@ public class PurdueAPIParser {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            List<String> foodItems = null;
-            for(int j=0; i<items.length(); j++){
+            ArrayList<String> foodItems = new ArrayList<String>();
+            // It a station has no items, then put that it is not serving
+            if(items.length() == 0){
+                if(type.equals("Breakfast")) {
+                    listDataHeaderBreakfast.add("Not Serving");
+                    String key = listDataHeaderBreakfast.get(0);
+                    listDataChildBreakfast.put(key, foodItems);
+                }
+
+                if(type.equals("Lunch")){
+                    listDataHeaderBreakfast.add("Not Serving");
+                    String key = listDataHeaderBreakfast.get(0);
+                    listDataChildBreakfast.put(key, foodItems);
+                }
+
+                if(type.equals("Dinner")){
+                    listDataHeaderBreakfast.add("Not Serving");
+                    String key = listDataHeaderBreakfast.get(0);
+                    listDataChildBreakfast.put(key, foodItems);
+                }
+
+            }
+
+            // Loop through the array of items add them to a list
+            for(int j=0; j<items.length(); j++) {
                 JSONObject item = null;
                 try {
                     item = items.getJSONObject(j);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d("debug-item",item.toString());
 
                 String itemName = null;
                 try {
@@ -385,9 +450,11 @@ public class PurdueAPIParser {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.d("debug","adding item " + itemName);
-
                 foodItems.add(itemName);
+
+
+            }
+                // For our expandadle List, create a header with the name of the station and then fill that header with the list of items that the station has
                 if(type.equals("Breakfast")) {
                     listDataHeaderBreakfast.add(name);
                     String key = listDataHeaderBreakfast.get(i);
@@ -405,7 +472,7 @@ public class PurdueAPIParser {
                     String key = listDataHeaderDinner.get(i);
                     listDataChildDinner.put(key, foodItems);
                 }
-            }
+
         }
 
 
