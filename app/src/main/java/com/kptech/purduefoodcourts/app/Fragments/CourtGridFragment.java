@@ -63,15 +63,9 @@ import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.internal.base.BaseCard;
 import it.gmariotti.cardslib.library.view.CardGridView;
 
-/**
- * Grid as Google Play example
- *
- * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
- */
+
 public class CourtGridFragment extends BaseFragment {
     public static ProgressDialog progressDialog;
-
-    protected ScrollView mScrollView;
 
     @Override
     public int getTitleResourceId() {
@@ -83,7 +77,6 @@ public class CourtGridFragment extends BaseFragment {
         return inflater.inflate(R.layout.court_grid_fragment_layout, container, false);
 
     }
-
 
 
     @Override
@@ -100,15 +93,14 @@ public class CourtGridFragment extends BaseFragment {
 
 
     private void initCards() {
-
         ArrayList<Card> cards = new ArrayList<Card>();
         for (int i = 0; i < 5; i++) {
 
-           // GplayGridCard card = new GplayGridCard(getActivity());
+            // GplayGridCard card = new GplayGridCard(getActivity());
             courtGridCard card = new courtGridCard(getActivity());
             final String courtName;
 
-            switch(i){
+            switch (i) {
                 case 0:
                     card.resourceIdThumbnail = R.drawable.ford;
                     card.headerTitle = "Ford";
@@ -141,14 +133,13 @@ public class CourtGridFragment extends BaseFragment {
                 @Override
                 public void onClick(Card card, View view) {
                     progressDialog = new ProgressDialog(getActivity());
-                    String message = "Fetching " + card.getCardHeader().getTitle()+"'s Menu";
+                    String message = "Fetching " + card.getCardHeader().getTitle() + "'s Menu";
                     progressDialog.setMessage(message);
                     progressDialog.show();
-                    Toast.makeText(getActivity(), "You Clicked " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT ).show();
-                    Intent i = new Intent(getActivity(),MenuFragment.class);
-                    i.putExtra("Location",card.getCardHeader().getTitle());
+                    //Toast.makeText(getActivity(), "You Clicked " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT ).show();
+                    Intent i = new Intent(getActivity(), MenuFragment.class);
+                    i.putExtra("Location", card.getCardHeader().getTitle());
                     getActivity().startActivity(i);
-
 
 
                 }
@@ -163,74 +154,4 @@ public class CourtGridFragment extends BaseFragment {
             listView.setAdapter(mCardArrayAdapter);
         }
     }
-
-
-    public class GplayGridCard extends Card {
-
-        protected TextView mTitle;
-        protected TextView mSecondaryTitle;
-        protected RatingBar mRatingBar;
-        protected int resourceIdThumbnail = -1;
-        protected int count;
-
-        protected String headerTitle;
-        protected String secondaryTitle;
-        protected float rating;
-
-        public GplayGridCard(Context context) {
-            super(context, R.layout.court_card_inner_content);
-
-        }
-
-        public GplayGridCard(Context context, int innerLayout) {
-            super(context, innerLayout);
-        }
-
-        private void init() {
-            CardHeader header = new CardHeader(getContext());
-            header.setButtonOverflowVisible(true);
-            header.setTitle(headerTitle);
-
-
-            addCardHeader(header);
-
-            GplayGridThumb thumbnail = new GplayGridThumb(getContext());
-            if (resourceIdThumbnail > -1)
-                thumbnail.setDrawableResource(resourceIdThumbnail);
-            else
-                thumbnail.setDrawableResource(R.drawable.ic_launcher);
-            addCardThumbnail(thumbnail);
-
-            setOnClickListener(new OnCardClickListener() {
-                @Override
-                public void onClick(Card card, View view) {
-                    //Do something
-                }
-            });
-        }
-
-        @Override
-        public void setupInnerViewElements(ViewGroup parent, View view) {
-
-            // TextView title = (TextView) view.findViewById(R.id.carddemo_gplay_main_inner_title);
-            // title.setText("FREE");
-
-        }
-
-        class GplayGridThumb extends CardThumbnail {
-
-            public GplayGridThumb(Context context) {
-                super(context);
-            }
-
-            @Override
-            public void setupInnerViewElements(ViewGroup parent, View viewImage) {
-                //viewImage.getLayoutParams().width = 196;
-                //viewImage.getLayoutParams().height = 196;
-
-            }
-        }
-
-    }
-
 }

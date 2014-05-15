@@ -20,7 +20,6 @@ import android.widget.ListView;
 
 import com.kptech.purduefoodcourts.app.Adapters.MenuPagerAdapater;
 import com.kptech.purduefoodcourts.app.Data.APIResponse;
-import com.kptech.purduefoodcourts.app.Interfaces.OnMenuDownloaded;
 import com.kptech.purduefoodcourts.app.PurdueAPIParser;
 import com.kptech.purduefoodcourts.app.R;
 

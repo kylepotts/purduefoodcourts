@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.widget.*;
 
 import com.kptech.purduefoodcourts.app.Fragments.MenuListFragment;
-import com.kptech.purduefoodcourts.app.Interfaces.OnMenuDownloaded;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +24,6 @@ public class MenuPagerAdapater extends FragmentPagerAdapter {
     private Activity context;
     String location;
     String mealType;
-    OnMenuDownloaded onMenuDownloadedListener;
     public MenuPagerAdapater(FragmentManager fm) {
         super(fm);
     }
