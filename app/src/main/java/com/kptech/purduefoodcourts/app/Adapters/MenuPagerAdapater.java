@@ -1,27 +1,15 @@
 package com.kptech.purduefoodcourts.app.Adapters;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 import android.widget.*;
 
-import com.kptech.purduefoodcourts.app.Data.APIResponse;
-import com.kptech.purduefoodcourts.app.Fragments.MenuFragment;
-import com.kptech.purduefoodcourts.app.Fragments.TestFragment;
+import com.kptech.purduefoodcourts.app.Fragments.MenuListFragment;
 import com.kptech.purduefoodcourts.app.Interfaces.OnMenuDownloaded;
-import com.kptech.purduefoodcourts.app.PurdueAPIParser;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -63,7 +51,7 @@ public class MenuPagerAdapater extends FragmentPagerAdapter {
                 mealType = "Dinner";
                 break;
         }
-        TestFragment test = new TestFragment();
+        MenuListFragment test = new MenuListFragment();
         Bundle args = new Bundle();
         args.putInt(test.ARG_OBJECT,position+1);
         args.putString("Location", location);

@@ -56,10 +56,9 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
         MenuPagerAdapater menuPagerAdapater = new MenuPagerAdapater(getSupportFragmentManager(),this, location, mealType);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(menuPagerAdapater);
-
+        CourtGridFragment.progressDialog.dismiss();
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         listView = (ListView) findViewById(R.id.left_drawer);
-
         ArrayList<String> courts = new ArrayList<String>();
         courts.add("Ford");
         courts.add("Hillenbrand");
@@ -94,9 +93,14 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
                 location = "Earhart";
                 break;
         }
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        String message = "Fetching " + location +"'s Menu";
+        progressDialog.setMessage(message);
+        progressDialog.show();
         Intent i = new Intent(this,MenuFragment.class);
         i.putExtra("Location",location);
         startActivity(i);
+        finish();
     }
 
 

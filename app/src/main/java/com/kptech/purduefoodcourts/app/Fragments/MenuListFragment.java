@@ -41,7 +41,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-public class TestFragment extends android.support.v4.app.Fragment {
+public class MenuListFragment extends android.support.v4.app.Fragment {
     public static final String ARG_OBJECT = "object";
     public static  final String KEY_BREAKFAST = "Breakfast";
     ExpandableListAdapter listAdapter;

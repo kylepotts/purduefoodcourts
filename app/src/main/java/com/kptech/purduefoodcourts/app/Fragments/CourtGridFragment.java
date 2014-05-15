@@ -1,5 +1,6 @@
 package com.kptech.purduefoodcourts.app.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -68,6 +69,7 @@ import it.gmariotti.cardslib.library.view.CardGridView;
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
 public class CourtGridFragment extends BaseFragment {
+    public static ProgressDialog progressDialog;
 
     protected ScrollView mScrollView;
 
@@ -138,10 +140,16 @@ public class CourtGridFragment extends BaseFragment {
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
+                    progressDialog = new ProgressDialog(getActivity());
+                    String message = "Fetching " + card.getCardHeader().getTitle()+"'s Menu";
+                    progressDialog.setMessage(message);
+                    progressDialog.show();
                     Toast.makeText(getActivity(), "You Clicked " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT ).show();
                     Intent i = new Intent(getActivity(),MenuFragment.class);
                     i.putExtra("Location",card.getCardHeader().getTitle());
                     getActivity().startActivity(i);
+
+
 
                 }
             });
