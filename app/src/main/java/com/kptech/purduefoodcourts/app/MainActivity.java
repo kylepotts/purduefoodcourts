@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseInstallation;
+import com.parse.PushService;
+
 import com.kptech.purduefoodcourts.app.Fragments.CourtGridFragment;
 
 
@@ -15,6 +20,9 @@ public class MainActivity extends  Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Parse.initialize(this, "63NJp0TOM7oGlYZr7hzqIGvJk17DcjhJqdmt9SlH", "tSOcMp8kW0bqBRb38r0b83PbuK545dAJuGQNRmJK");
+        PushService.setDefaultPushCallback(this, MainActivity.class);
+        ParseInstallation.getCurrentInstallation().saveInBackground();
         //setContentView(R.layout.activity_main);
     }
 

@@ -68,10 +68,12 @@
       <excludeFolder url="file://$MODULE_DIR$/build/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 16 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="support-v4-18.0.0" level="project" />
     <orderEntry type="library" exported="" name="library-1.6.0" level="project" />
+    <orderEntry type="library" exported="" name="Parse-1.5.0" level="project" />
+    <orderEntry type="library" exported="" name="1_Parse-1.5.0" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.2.0" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.4" level="project" />
     <orderEntry type="library" exported="" name="parchment-1.6.6" level="project" />
