@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="1_Parse-1.5.0">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/libs/Parse-1.5.0.jar!/" />
+      <root url="jar:///home/kyle/Dev/Android/purduefoodcourts/libs/Parse-1.5.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

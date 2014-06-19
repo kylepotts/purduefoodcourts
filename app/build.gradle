@@ -5,9 +5,9 @@ dependencies {
     compile 'mobi.parchment:parchment:1.6.6@aar'
     compile 'com.github.gabrielemariotti.cards:library:1.6.0'
     compile 'com.android.support:support-v4:18.0.+'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile files('libs/Parse-1.5.0.jar')
     compile files('/home/kyle/Dev/Android/purduefoodcourts/libs/Parse-1.5.0.jar')
+    compile files('/Users/kyle/Dev/Android/purduefoodcourts/libs/Parse-1.5.0.jar')
 }
 
 android {

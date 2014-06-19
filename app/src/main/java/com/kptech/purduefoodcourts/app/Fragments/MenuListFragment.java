@@ -69,6 +69,11 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
         APIResponse r = getMenu(location,mealType);
         listAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),r.getList(),r.getHash());
         expListView.setAdapter(listAdapter);
+        int count = listAdapter.getGroupCount();
+        for(int pos =1; pos<= count; pos++){
+            expListView.expandGroup(pos-1);
+        }
+
         return rootView;
     }
 
@@ -76,7 +81,6 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
 
 
     public APIResponse getMenu(final String location, final String mealType){
-        final ProgressDialog progress =  ProgressDialog.show(getActivity(),"","Downloading",true);
         final APIResponse[] response = new APIResponse[1];
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -96,18 +100,9 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
                     response[0] = apiParser.getBreakfast();
                 } else if (mealType == "Lunch"){
                     response[0] = apiParser.getLunch();
-                } else if (mealType == "Dinner"){
+                } else if (mealType == "Dinner") {
                     response[0] = apiParser.getDinner();
                 }
-
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        progress.dismiss();
-                    }
-                });
-
             }
         });
         thread.start();

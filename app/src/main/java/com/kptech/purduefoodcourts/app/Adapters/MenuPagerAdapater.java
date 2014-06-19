@@ -28,12 +28,10 @@ public class MenuPagerAdapater extends FragmentPagerAdapter {
         super(fm);
     }
 
-    public MenuPagerAdapater(FragmentManager fm, Activity a, String location, String mealType){
+    public MenuPagerAdapater(FragmentManager fm, Activity a, String location){
         super(fm);
         this.context = a;
         this.location = location;
-        this.mealType = mealType;
-
     }
 
     @Override

@@ -43,19 +43,21 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
     ViewPager mViewPager;
     DrawerLayout drawerLayout;
     ListView listView;
-    public static  final String KEY_BREAKFAST = "Breakfast";
 
 
     public void onCreate(Bundle b){
         super.onCreate(b);
         setContentView(R.layout.menu_fragment);
         String location = getIntent().getExtras().getString("Location");
-        getActionBar().setTitle(location);
-        String mealType = getIntent().getExtras().getString("MealType");
-        MenuPagerAdapater menuPagerAdapater = new MenuPagerAdapater(getSupportFragmentManager(),this, location, mealType);
+        CourtGridFragment.progressDialog.dismiss();
+
+        MenuPagerAdapater menuPagerAdapater = new MenuPagerAdapater(getSupportFragmentManager(),this, location);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(menuPagerAdapater);
-        CourtGridFragment.progressDialog.dismiss();
+        getActionBar().setTitle(location);
+
+
+        // Initalize Drawer with Court Names and set onClick Listeners
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         listView = (ListView) findViewById(R.id.left_drawer);
         ArrayList<String> courts = new ArrayList<String>();
@@ -74,6 +76,7 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
     }
 
     public void selectItem(int position){
+
         String location = null;
         switch (position){
             case 0:
@@ -91,6 +94,7 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
             case 4:
                 location = "Earhart";
                 break;
+
         }
         ProgressDialog progressDialog = new ProgressDialog(this);
         String message = "Fetching " + location +"'s Menu";
@@ -100,9 +104,10 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
         i.putExtra("Location",location);
         startActivity(i);
         finish();
+
     }
 
-
+    // When an Items is Selected from the Drawer
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         selectItem(i);
