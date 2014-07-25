@@ -8,7 +8,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/Parse-1.5.0" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

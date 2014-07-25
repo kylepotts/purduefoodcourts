@@ -1,11 +1,18 @@
 package com.kptech.purduefoodcourts.app.Fragments;
 
+import android.app.AlertDialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
@@ -35,11 +42,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import android.support.v4.*;
+import android.widget.TextView;
 
 public class MenuListFragment extends android.support.v4.app.Fragment {
     public static final String ARG_OBJECT = "object";
@@ -73,6 +85,53 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
         for(int pos =1; pos<= count; pos++){
             expListView.expandGroup(pos-1);
         }
+
+
+        expListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long id) {
+                View v = adapterView.getChildAt(i);
+                TextView tv = (TextView) v.findViewById(R.id.lblListItem);
+                Log.d("debug",tv.getText().toString());
+                final String foodItem = tv.getText().toString();
+
+
+
+                Log.d("view",view.toString());
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("Add Favorite")
+                        .setMessage("Do you want to add " + foodItem + " to your favorites?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences settings = getActivity().getSharedPreferences("fav", 0);
+                                Set<String> set = settings.getStringSet("favorites",null);
+                                SharedPreferences.Editor editor = settings.edit();
+                                if(set == null){
+                                    Set<String> hSet = new HashSet<String>();
+                                    List<String> favList = new ArrayList<String>();
+                                    favList.add(foodItem);
+                                    set.addAll(favList);
+
+                                    editor.putStringSet("fav",hSet);
+                                } else {
+                                    set.add(foodItem);
+                                    editor.putStringSet("fav",set);
+
+                                }
+                                // continue with delete
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+                return false;
+            }
+        });
+
 
         return rootView;
     }

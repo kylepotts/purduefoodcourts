@@ -1,1 +1,1 @@
-include ':app', ':Parse-1.5.0'
+include ':app'

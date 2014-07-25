@@ -9,6 +9,7 @@ import java.util.List;
 public class APIResponse {
     private List<String> listDataHeader;
     private HashMap<String, List<String>> listDataChild;
+    // "Food Area Name / EG Legal Grease " -> <List of items at that area>
 
     public APIResponse(List<String> list, HashMap<String, List<String>> hash){
         this.listDataHeader = list;

@@ -7,10 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
-import com.parse.ParseInstallation;
-import com.parse.PushService;
 
 import com.kptech.purduefoodcourts.app.Fragments.CourtGridFragment;
 
@@ -20,9 +16,6 @@ public class MainActivity extends  Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Parse.initialize(this, "82GPBY7j80h3b8a7Ip3utG9gu6Z9U2zlmCxijKLU", "zaExmcNcGRWBuvIl67mmIURxRBPxlZhurmfCveuD");
-        PushService.setDefaultPushCallback(this, MainActivity.class);
-        ParseInstallation.getCurrentInstallation().saveInBackground();
         //setContentView(R.layout.activity_main);
     }
 
@@ -30,7 +23,6 @@ public class MainActivity extends  Activity {
     public void onStart(){
         super.onStart();
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        //CourtGridFragment frag = new CourtGridFragment();
        CourtGridFragment frag = new CourtGridFragment();
         fragmentTransaction.replace(android.R.id.content, frag).commit();
     }
