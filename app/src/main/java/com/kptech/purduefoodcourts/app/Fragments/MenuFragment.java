@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,14 +61,15 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
         // Initalize Drawer with Court Names and set onClick Listeners
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         listView = (ListView) findViewById(R.id.left_drawer);
-        ArrayList<String> courts = new ArrayList<String>();
-        courts.add("Ford");
-        courts.add("Hillenbrand");
-        courts.add("Wiley");
-        courts.add("Windsor");
-        courts.add("Earhart");
+        ArrayList<String> drawerItems = new ArrayList<String>();
+        drawerItems.add("Ford");
+        drawerItems.add("Hillenbrand");
+        drawerItems.add("Wiley");
+        drawerItems.add("Windsor");
+        drawerItems.add("Earhart");
+        drawerItems.add("Favorites");
         listView.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, courts));
+                R.layout.drawer_list_item, drawerItems));
         listView.setOnItemClickListener(this);
 
 
@@ -78,6 +80,7 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
     public void selectItem(int position){
 
         String location = null;
+        boolean isFavorites;
         switch (position){
             case 0:
                 location = "Ford";
@@ -96,14 +99,22 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
                 break;
 
         }
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        String message = "Fetching " + location +"'s Menu";
-        progressDialog.setMessage(message);
-        progressDialog.show();
-        Intent i = new Intent(this,MenuFragment.class);
-        i.putExtra("Location",location);
-        startActivity(i);
-        finish();
+        if(position <=4) {
+            ProgressDialog progressDialog = new ProgressDialog(this);
+            String message = "Fetching " + location + "'s Menu";
+            progressDialog.setMessage(message);
+            progressDialog.show();
+            Intent i = new Intent(this, MenuFragment.class);
+            i.putExtra("Location", location);
+            startActivity(i);
+            finish();
+        } else {
+            Log.d("fav-debug","chose fav");
+            Intent i = new Intent(this,FavoritesFragment.class);
+            startActivity(i);
+
+
+        }
 
     }
 

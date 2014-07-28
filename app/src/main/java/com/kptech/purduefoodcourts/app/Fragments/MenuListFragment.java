@@ -75,6 +75,7 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
         APIResponse r = getMenu(location,mealType);
         listAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),r.getList(),r.getHash());
         expListView.setAdapter(listAdapter);
+        // Expand the list view by default
         int count = listAdapter.getGroupCount();
         for(int pos =1; pos<= count; pos++){
             expListView.expandGroup(pos-1);
@@ -86,9 +87,12 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long id) {
                 View v = adapterView.getChildAt(i);
                 TextView tv = (TextView) v.findViewById(R.id.lblListItem);
-                Log.d("debug",tv.getText().toString());
                 final String foodItem = tv.getText().toString();
 
+
+                /*
+                      Dialog for long press on item to add to favorites
+                 */
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Add Favorite")
                         .setMessage("Do you want to add " + foodItem + " to your favorites?")
