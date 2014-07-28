@@ -1,0 +1,35 @@
+int attr cellSpacing 0x7f010004
+int attr gravity 0x7f010002
+int attr isCircularScroll 0x7f010005
+int attr isViewPager 0x7f010008
+int attr numberOfViewsPerCell 0x7f010001
+int attr orientation 0x7f010003
+int attr ratio 0x7f010000
+int attr selectOnSnap 0x7f010007
+int attr selectWhileScrolling 0x7f01000a
+int attr snapPosition 0x7f010009
+int attr snapToPosition 0x7f010006
+int id bottom 0x7f020003
+int id center 0x7f020006
+int id end 0x7f020008
+int id horizontal 0x7f020004
+int id left 0x7f020000
+int id onScreen 0x7f020009
+int id right 0x7f020001
+int id start 0x7f020007
+int id top 0x7f020002
+int id vertical 0x7f020005
+int[] styleable GridPatternView { 0x7f010000 }
+int styleable GridPatternView_ratio 0
+int[] styleable GridView { 0x7f010001, 0x7f010002 }
+int styleable GridView_gravity 1
+int styleable GridView_numberOfViewsPerCell 0
+int[] styleable ListView { 0x7f010003, 0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007, 0x7f010008, 0x7f010009, 0x7f01000a }
+int styleable ListView_cellSpacing 1
+int styleable ListView_isCircularScroll 2
+int styleable ListView_isViewPager 5
+int styleable ListView_orientation 0
+int styleable ListView_selectOnSnap 4
+int styleable ListView_selectWhileScrolling 7
+int styleable ListView_snapPosition 6
+int styleable ListView_snapToPosition 3

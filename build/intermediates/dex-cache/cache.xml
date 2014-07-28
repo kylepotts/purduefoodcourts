@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/classes-f4e2881801f2b3e094bd93d63a94133011ac81ef.jar"
+        jar="/home/kyle/Dev/android/purduefoodcourts/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.6.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="dd59f15631a0446653bc4197a9afd6ee63eef42d"/>
+    <item
+        dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/gson-2.2.4-2deb4e342220d0550baca974f001c8dda541ae95.jar"
+        jar="/home/kyle/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568"/>
+    <item
+        dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/Parse-1.5.0-f9476a3749e843eba2e8c06f06369cac02875211.jar"
+        jar="/home/kyle/Dev/android/purduefoodcourts/libs/Parse-1.5.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="8a675f7e3312d8b28188ec653bbea6d435aaa7d1"/>
+    <item
+        dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/classes-b014e1d8a3d3fd994bb09279e694b3def3a4d2cb.jar"
+        jar="/home/kyle/Dev/android/purduefoodcourts/build/intermediates/exploded-aar/mobi.parchment/parchment/1.6.6/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="baa31d24b75d306b22613f1b87d50a3c3677b14c"/>
+    <item
+        dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/picasso-2.2.0-33ab425988ea34d47bb21d317c8ccd791348f1f8.jar"
+        jar="/home/kyle/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.2.0/74137f8d9aac26dd9463efe32271f2be8d41cda9/picasso-2.2.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="74137f8d9aac26dd9463efe32271f2be8d41cda9"/>
+    <item
+        dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/support-v4-18.0.0-ec5f105e7995ffae3adacb5bacd4960ee0096747.jar"
+        jar="/opt/android-sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156"/>
+
+</pre-dex-items>

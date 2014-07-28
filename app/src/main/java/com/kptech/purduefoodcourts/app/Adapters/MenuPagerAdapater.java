@@ -50,7 +50,7 @@ public class MenuPagerAdapater extends FragmentPagerAdapter {
         }
         MenuListFragment test = new MenuListFragment();
         Bundle args = new Bundle();
-        args.putInt(test.ARG_OBJECT,position+1);
+        //args.putInt(test.ARG_OBJECT,position+1);
         args.putString("Location", location);
         args.putString("MealType",mealType);
         test.setArguments(args);

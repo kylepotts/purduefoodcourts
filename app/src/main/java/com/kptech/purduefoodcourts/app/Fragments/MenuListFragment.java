@@ -54,14 +54,8 @@ import android.support.v4.*;
 import android.widget.TextView;
 
 public class MenuListFragment extends android.support.v4.app.Fragment {
-    public static final String ARG_OBJECT = "object";
-    public static  final String KEY_BREAKFAST = "Breakfast";
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
-    String type;
-
 
 
 
@@ -95,9 +89,6 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
                 Log.d("debug",tv.getText().toString());
                 final String foodItem = tv.getText().toString();
 
-
-
-                Log.d("view",view.toString());
                 new AlertDialog.Builder(getActivity())
                         .setTitle("Add Favorite")
                         .setMessage("Do you want to add " + foodItem + " to your favorites?")
@@ -107,17 +98,20 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
                                 Set<String> set = settings.getStringSet("favorites",null);
                                 SharedPreferences.Editor editor = settings.edit();
                                 if(set == null){
+                                    Log.d("debug-fav", "set is null");
                                     Set<String> hSet = new HashSet<String>();
                                     List<String> favList = new ArrayList<String>();
                                     favList.add(foodItem);
-                                    set.addAll(favList);
+                                    hSet.addAll(favList);
 
-                                    editor.putStringSet("fav",hSet);
+                                    editor.putStringSet("favorites",hSet);
                                 } else {
+                                    Log.d("debug-fav","set is not empty adding item");
                                     set.add(foodItem);
-                                    editor.putStringSet("fav",set);
+                                    editor.putStringSet("favorites",set);
 
                                 }
+                                editor.commit();
                                 // continue with delete
                             }
                         })
