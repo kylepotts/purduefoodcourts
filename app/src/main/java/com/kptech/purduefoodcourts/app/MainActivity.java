@@ -1,7 +1,10 @@
 package com.kptech.purduefoodcourts.app;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +12,9 @@ import android.view.MenuItem;
 
 
 import com.kptech.purduefoodcourts.app.Fragments.CourtGridFragment;
+import com.kptech.purduefoodcourts.app.Receivers.NotifyFavoritesReceiver;
+
+import java.util.Calendar;
 
 
 public class MainActivity extends  Activity {
@@ -16,6 +22,16 @@ public class MainActivity extends  Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY,15);
+        calendar.set(Calendar.MINUTE,47);
+
+        Intent myIntent = new Intent(MainActivity.this, NotifyFavoritesReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         //setContentView(R.layout.activity_main);
     }
 

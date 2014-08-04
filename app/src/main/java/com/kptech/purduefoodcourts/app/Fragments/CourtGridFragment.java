@@ -94,7 +94,7 @@ public class CourtGridFragment extends BaseFragment {
 
     private void initCards() {
         ArrayList<Card> cards = new ArrayList<Card>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
 
             // GplayGridCard card = new GplayGridCard(getActivity());
             courtGridCard card = new courtGridCard(getActivity());
@@ -125,6 +125,14 @@ public class CourtGridFragment extends BaseFragment {
                     card.resourceIdThumbnail = R.drawable.earhart;
                     card.headerTitle = "Earhart";
                     courtName = "Earhart";
+                    break;
+
+
+                case 5:
+                    card.resourceIdThumbnail = R.drawable.favs;
+                    card.headerTitle = "Favorites";
+                    break;
+
 
 
             }
@@ -132,14 +140,19 @@ public class CourtGridFragment extends BaseFragment {
             card.setOnClickListener(new Card.OnCardClickListener() {
                 @Override
                 public void onClick(Card card, View view) {
-                    progressDialog = new ProgressDialog(getActivity());
-                    String message = "Fetching " + card.getCardHeader().getTitle() + "'s Menu";
-                    progressDialog.setMessage(message);
-                    progressDialog.show();
-                    //Toast.makeText(getActivity(), "You Clicked " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT ).show();
-                    Intent i = new Intent(getActivity(), MenuFragment.class);
-                    i.putExtra("Location", card.getCardHeader().getTitle());
-                    getActivity().startActivity(i);
+                    if(!(card.getCardHeader().getTitle().equals("Favorites"))) {
+                        progressDialog = new ProgressDialog(getActivity());
+                        String message = "Fetching " + card.getCardHeader().getTitle() + "'s Menu";
+                        progressDialog.setMessage(message);
+                        progressDialog.show();
+                        //Toast.makeText(getActivity(), "You Clicked " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT ).show();
+                        Intent i = new Intent(getActivity(), MenuFragment.class);
+                        i.putExtra("Location", card.getCardHeader().getTitle());
+                        getActivity().startActivity(i);
+                    } else {
+                        Intent i = new Intent(getActivity(),FavoritesFragment.class);
+                        startActivity(i);
+                    }
 
 
                 }

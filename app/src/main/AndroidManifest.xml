@@ -41,6 +41,10 @@
             android:label="Favorites Fragment"
             android:parentActivityName="com.kptech.purduefoodcourts.app.MainActivity" >
         </activity>
+        <service android:name=".Services.NotifyFavoritesService"
+            android:enabled="true" />
+
+        <receiver android:name=".Receivers.NotifyFavoritesReceiver"/>
     </application>
 
 

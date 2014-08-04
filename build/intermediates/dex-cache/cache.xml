@@ -2,14 +2,8 @@
 <pre-dex-items>
 
     <item
-        dex="/Users/kyle/Dev/Android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/support-v4-18.0.0-876f7c0fe81dc577a27afff4c10d5b3123da8840.jar"
-        jar="/Applications/eclipse/sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="44ec51e9d395a47aab135e5e1b556c0007442156"/>
-    <item
-        dex="/Users/kyle/Dev/Android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/classes-2df43e10dfad5ef731341ed148ea97b6e2752312.jar"
-        jar="/Users/kyle/Dev/Android/purduefoodcourts/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.6.0/classes.jar"
+        dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/classes-d51c6cc1bf42d531fc6295d2273a4e40c367f07e.jar"
+        jar="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.6.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="dd59f15631a0446653bc4197a9afd6ee63eef42d"/>

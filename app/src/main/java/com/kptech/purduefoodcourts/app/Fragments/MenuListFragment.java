@@ -17,8 +17,10 @@ import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
 import com.kptech.purduefoodcourts.app.Data.APIResponse;
+import com.kptech.purduefoodcourts.app.Interfaces.OnFoodItemsReceivedHandler;
 import com.kptech.purduefoodcourts.app.PurdueAPIParser;
 import com.kptech.purduefoodcourts.app.R;
+import com.kptech.purduefoodcourts.app.tasks.GetFoodMenuTask;
 
 import junit.framework.Test;
 
@@ -53,14 +55,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import android.support.v4.*;
 import android.widget.TextView;
 
-public class MenuListFragment extends android.support.v4.app.Fragment {
+public class MenuListFragment extends android.support.v4.app.Fragment implements OnFoodItemsReceivedHandler {
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
 
-
-
-
-    @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         // The last two arguments ensure LayoutParams are inflated
@@ -72,14 +70,8 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
         String location = args.getString("Location");
         String mealType = args.getString("MealType");
         expListView = (ExpandableListView) rootView.findViewById(R.id.lvExp);
-        APIResponse r = getMenu(location,mealType);
-        listAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),r.getList(),r.getHash());
-        expListView.setAdapter(listAdapter);
-        // Expand the list view by default
-        int count = listAdapter.getGroupCount();
-        for(int pos =1; pos<= count; pos++){
-            expListView.expandGroup(pos-1);
-        }
+        GetFoodMenuTask task = new GetFoodMenuTask(getActivity(),location,mealType,this);
+        task.execute();
 
 
         expListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -115,6 +107,7 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
                                     editor.putStringSet("favorites",set);
 
                                 }
+
                                 editor.commit();
                                 // continue with delete
                             }
@@ -134,44 +127,6 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
         return rootView;
     }
 
-
-
-
-    public APIResponse getMenu(final String location, final String mealType){
-        final APIResponse[] response = new APIResponse[1];
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-                String date = "/"+df.format(Calendar.getInstance().getTime());
-                String mUrl = "http://api.hfs.purdue.edu/menus/v1/locations/"+location.toLowerCase()+date+"/";
-                Log.d("debug-url", mUrl);
-                String xml = getXmlFormUrl(mUrl);
-                PurdueAPIParser apiParser = null;
-                try {
-                     apiParser = new PurdueAPIParser(xml,getActivity());
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-                if(mealType == "Breakfast"){
-                    response[0] = apiParser.getBreakfast();
-                } else if (mealType == "Lunch"){
-                    response[0] = apiParser.getLunch();
-                } else if (mealType == "Dinner") {
-                    response[0] = apiParser.getDinner();
-                }
-            }
-        });
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return response[0];
-
-    }
-
     public String getXmlFormUrl(String url){
         HttpClient client = new DefaultHttpClient();
         HttpGet get = new HttpGet(url);
@@ -186,5 +141,22 @@ public class MenuListFragment extends android.support.v4.app.Fragment {
     }
 
 
+    @Override
+    public void onFoodItemsReceived(APIResponse r) {
+        listAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),r.getList(),r.getHash());
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                expListView.setAdapter(listAdapter);
+                // Expand the list view by default
+                int count = listAdapter.getGroupCount();
+                for(int pos =1; pos<= count; pos++){
+                    expListView.expandGroup(pos-1);
+                }
 
+            }
+        });
+
+
+    }
 }
