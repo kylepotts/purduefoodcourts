@@ -58,7 +58,7 @@ import android.widget.TextView;
 public class MenuListFragment extends android.support.v4.app.Fragment implements OnFoodItemsReceivedHandler {
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
-
+    private ProgressDialog progressDialog;
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         // The last two arguments ensure LayoutParams are inflated
@@ -69,6 +69,9 @@ public class MenuListFragment extends android.support.v4.app.Fragment implements
         Bundle args = getArguments();
         String location = args.getString("Location");
         String mealType = args.getString("MealType");
+
+
+
         expListView = (ExpandableListView) rootView.findViewById(R.id.lvExp);
         GetFoodMenuTask task = new GetFoodMenuTask(getActivity(),location,mealType,this);
         task.execute();
@@ -143,6 +146,11 @@ public class MenuListFragment extends android.support.v4.app.Fragment implements
 
     @Override
     public void onFoodItemsReceived(APIResponse r) {
+
+        if(MenuFragment.progressDialog.isShowing()){
+            MenuFragment.progressDialog.dismiss();
+        }
+
         listAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),r.getList(),r.getHash());
         getActivity().runOnUiThread(new Runnable() {
             @Override

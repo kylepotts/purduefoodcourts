@@ -44,13 +44,19 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
     ViewPager mViewPager;
     DrawerLayout drawerLayout;
     ListView listView;
+    public static ProgressDialog progressDialog;
 
 
     public void onCreate(Bundle b){
         super.onCreate(b);
         setContentView(R.layout.menu_fragment);
         String location = getIntent().getExtras().getString("Location");
-        CourtGridFragment.progressDialog.dismiss();
+
+        progressDialog = new ProgressDialog(this);
+        String message = "Fetching " + location + "'s Menu";
+        progressDialog.setMessage(message);
+        progressDialog.show();
+        // CourtGridFragment.progressDialog.dismiss();
 
         MenuPagerAdapater menuPagerAdapater = new MenuPagerAdapater(getSupportFragmentManager(),this, location);
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -100,10 +106,6 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
 
         }
         if(position <=4) {
-            ProgressDialog progressDialog = new ProgressDialog(this);
-            String message = "Fetching " + location + "'s Menu";
-            progressDialog.setMessage(message);
-            progressDialog.show();
             Intent i = new Intent(this, MenuFragment.class);
             i.putExtra("Location", location);
             startActivity(i);

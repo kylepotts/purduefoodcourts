@@ -141,10 +141,6 @@ public class CourtGridFragment extends BaseFragment {
                 @Override
                 public void onClick(Card card, View view) {
                     if(!(card.getCardHeader().getTitle().equals("Favorites"))) {
-                        progressDialog = new ProgressDialog(getActivity());
-                        String message = "Fetching " + card.getCardHeader().getTitle() + "'s Menu";
-                        progressDialog.setMessage(message);
-                        progressDialog.show();
                         //Toast.makeText(getActivity(), "You Clicked " + card.getCardHeader().getTitle(), Toast.LENGTH_SHORT ).show();
                         Intent i = new Intent(getActivity(), MenuFragment.class);
                         i.putExtra("Location", card.getCardHeader().getTitle());
