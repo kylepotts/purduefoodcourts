@@ -26,8 +26,8 @@ public class MainActivity extends  Activity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 19);
-        calendar.set(Calendar.MINUTE,58);
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE,48);
 
 
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);

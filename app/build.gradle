@@ -1,21 +1,20 @@
 apply plugin: 'android'
 dependencies {
     compile 'com.github.gabrielemariotti.cards:library:1.6.0'
-    compile "com.android.support:support-v4:20.0.+"
+    compile 'com.android.support:support-v4:20.0.+'
 }
 
 android {
-
     compileSdkVersion 16
     buildToolsVersion '19.1.0'
-
-
     defaultConfig {
         versionCode 2
-        versionName "1.0.1"
+        versionName '1.0.1'
         minSdkVersion 16
         targetSdkVersion 19
     }
-
-
+    productFlavors {
+    }
+    buildTypes {
+    }
 }

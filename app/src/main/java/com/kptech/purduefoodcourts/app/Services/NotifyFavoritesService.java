@@ -13,6 +13,7 @@ import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.kptech.purduefoodcourts.app.Data.APIResponse;
+import com.kptech.purduefoodcourts.app.Data.NotifyFavoritesItem;
 import com.kptech.purduefoodcourts.app.Fragments.CourtGridFragment;
 import com.kptech.purduefoodcourts.app.Interfaces.OnFoodItemsReceivedHandler;
 import com.kptech.purduefoodcourts.app.Interfaces.OnMenuXmlReceivedHandler;
@@ -33,6 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -46,6 +48,7 @@ import android.support.v4.app.NotificationCompat.WearableExtender;
 public class NotifyFavoritesService extends Service implements OnMenuXmlReceivedHandler {
     private NotificationManager mManager;
     private Set<String> favorites;
+    private String noticationGroupName = "fav_notif";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -65,6 +68,7 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
     {
         super.onStart(intent, startId);
 
+        /*
         mManager = (NotificationManager) this.getApplicationContext().getSystemService(this.getApplicationContext().NOTIFICATION_SERVICE);
         Intent intent1 = new Intent(this.getApplicationContext(),CourtGridFragment.class);
 
@@ -76,6 +80,7 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notification.setLatestEventInfo(this.getApplicationContext(), "AlarmManagerDemo", "This is a test message!", pendingNotificationIntent);
         mManager.notify(0, notification);
+        */
 
         checkForFavorites();
     }
@@ -112,34 +117,44 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
 
     }
 
-    public void createNotifcation(String item, String court, String mealType){
-        String notifcationTitle = "A favorite is being served!";
-        String notiicationText = item + " is being served at " + court + " for " + mealType;
-        int notificationId = 001;
-// Build intent for notification content
-        Intent viewIntent = new Intent(this, MainActivity.class);
-        PendingIntent viewPendingIntent =
-                PendingIntent.getActivity(this, 0, viewIntent, 0);
+    public void createNotifcation(List<NotifyFavoritesItem> items, int nid){
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle("Purdue Food courts")
+                .setContentText("Favorites being served");
+        NotificationCompat.InboxStyle inboxStyle =
+                new NotificationCompat.InboxStyle();
+// Sets a title for the Inbox style big view
+        inboxStyle.setBigContentTitle("Favorites being served!");
 
-        NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle(notifcationTitle)
-                        .setContentText(notiicationText)
-                        .setContentIntent(viewPendingIntent);
+// Moves events into the big view
 
-// Get an instance of the NotificationManager service
-        NotificationManagerCompat notificationManager =
-                NotificationManagerCompat.from(this);
+        for(NotifyFavoritesItem item : items){
+            inboxStyle.addLine(item.createNotifcationstring());
+        }
 
-// Build the notification and issues it with notification manager.
-        notificationManager.notify(notificationId, notificationBuilder.build());
+// Moves the big view style object into the notification object.
+        mBuilder.setStyle(inboxStyle);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+// mId allows you to update the notification later on.
+        mNotificationManager.notify(nid, mBuilder.build());
+
+// Issue the notification here.
+
+
+
+
+
+
 
     }
 
 
     @Override
     public void onMenuXmlReceived(String xmlResp,String location) {
+        ArrayList<NotifyFavoritesItem> notifyFavString = new ArrayList<NotifyFavoritesItem>();
+        Log.d("debug-notifcation","Testing for " + location);
 
         APIResponse[] responses = new APIResponse[3];
         PurdueAPIParser apiParser = null;
@@ -157,10 +172,9 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
         SharedPreferences settings = getSharedPreferences("fav", 0);
         Set<String> favorites = settings.getStringSet("favorites",null);
         this.favorites = favorites;
+        int nid = 1;
 
-        String[] courts = new String[]{"Ford","Earhart","Wiley","Windsor","Hillenbrand"};
 
-        for(String c: courts){
             for(int i=0; i<responses.length; i++){
                 APIResponse response = responses[i];
                 Iterator it = response.getHash().entrySet().iterator();
@@ -169,9 +183,9 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
                     //Log.d("NotifyFavService", pairs.getKey() + " = " + pairs.getValue());
                     ArrayList<String> foodItems = (ArrayList<String>) pairs.getValue();
                     for(String foodItem: foodItems) {
-                        Log.d("debug-foodItem",foodItem);
+                        //Log.d("debug-foodItem",foodItem);
                         for (String favorite : favorites) {
-                            Log.d("debug-fav",favorite);
+                           // Log.d("debug-fav",favorite);
                             if (favorite.equals(foodItem)) {
                                 String mealType = null;
                                 if (i == 0) {
@@ -182,17 +196,26 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
                                     mealType = "Dinner";
                                     Log.d("debug", "match");
                                 }
-                                createNotifcation(foodItem, location, mealType);
+                                Log.d("Match","foodItem " + mealType + " " + location);
+                                //createNotifcation(foodItem, location, mealType,nid);
+                                notifyFavString.add(new NotifyFavoritesItem(foodItem,location,mealType));
+                                nid++;
                             }
                         }
                     }
                     it.remove(); // avoids a ConcurrentModificationException
                 }
             }
-        }
+
+            createNotifcation(notifyFavString,nid);
+
+
+
 
 
 
     }
+
+
 }
 
