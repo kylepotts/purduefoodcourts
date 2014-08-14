@@ -311,7 +311,7 @@ public class PurdueAPIParser {
     ArrayList<String> listDataHeaderDinner;
     HashMap<String, List<String>> listDataChildDinner;
 
-    public PurdueAPIParser(String xml, Activity a) throws JSONException {
+    public PurdueAPIParser(String xml) throws JSONException {
         this.xml = xml;
         rootObject = new JSONObject(xml);
         listDataHeaderBreakfast = new ArrayList<String>();

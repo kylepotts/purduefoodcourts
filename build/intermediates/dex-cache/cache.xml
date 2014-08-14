@@ -2,6 +2,24 @@
 <pre-dex-items>
 
     <item
+        dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-f50f597d9217e331f8e66015492499685f9db236.jar"
+        jar="/opt/android-sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/classes-89d7f6659d56468292748f06f27bf3409f674737.jar"
+        jar="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-e52bf41ca4f77dd03200e2d3acf0148a32743c45.jar"
+        jar="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
         dex="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/classes-d51c6cc1bf42d531fc6295d2273a4e40c367f07e.jar"
         jar="/home/kyle/Dev/android/purduefoodcourts/app/build/intermediates/exploded-aar/com.github.gabrielemariotti.cards/library/1.6.0/classes.jar"
         jumboMode="false"

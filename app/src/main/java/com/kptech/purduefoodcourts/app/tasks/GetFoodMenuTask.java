@@ -56,7 +56,7 @@ public class GetFoodMenuTask extends AsyncTask<Void,Void,Void> {
                 String xml = getXmlFormUrl(mUrl);
                 PurdueAPIParser apiParser = null;
                 try {
-                    apiParser = new PurdueAPIParser(xml,activity);
+                    apiParser = new PurdueAPIParser(xml);
                 } catch(Exception e) {
                     e.printStackTrace();
                 }
