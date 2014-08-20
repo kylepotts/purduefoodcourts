@@ -49,6 +49,9 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
     private NotificationManager mManager;
     private Set<String> favorites;
     private String noticationGroupName = "fav_notif";
+    private ArrayList<NotifyFavoritesItem> notifyFavString = new ArrayList<NotifyFavoritesItem>();
+    private int numTimesRet = 0;
+
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -138,7 +141,7 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 // mId allows you to update the notification later on.
-        mNotificationManager.notify(nid, mBuilder.build());
+        mNotificationManager.notify(001, mBuilder.build());
 
 // Issue the notification here.
 
@@ -153,7 +156,7 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
 
     @Override
     public void onMenuXmlReceived(String xmlResp,String location) {
-        ArrayList<NotifyFavoritesItem> notifyFavString = new ArrayList<NotifyFavoritesItem>();
+       // ArrayList<NotifyFavoritesItem> notifyFavString = new ArrayList<NotifyFavoritesItem>();
         Log.d("debug-notifcation","Testing for " + location);
 
         APIResponse[] responses = new APIResponse[3];
@@ -171,6 +174,9 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
 
         SharedPreferences settings = getSharedPreferences("fav", 0);
         Set<String> favorites = settings.getStringSet("favorites",null);
+        if(favorites == null){
+            return;
+        }
         this.favorites = favorites;
         int nid = 1;
 
@@ -206,8 +212,12 @@ public class NotifyFavoritesService extends Service implements OnMenuXmlReceived
                     it.remove(); // avoids a ConcurrentModificationException
                 }
             }
-
-            createNotifcation(notifyFavString,nid);
+            numTimesRet++;
+            Log.d("num",""+numTimesRet);
+            if(numTimesRet == 5) {
+                Log.d("debug-notif","setting notif");
+                createNotifcation(notifyFavString, nid);
+            }
 
 
 

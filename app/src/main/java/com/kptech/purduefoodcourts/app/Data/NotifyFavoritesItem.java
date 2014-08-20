@@ -17,6 +17,6 @@ public class NotifyFavoritesItem {
     }
 
     public String createNotifcationstring(){
-        return location + " " + mealType + " " + item;
+        return item + " at " + location + " for " + mealType;
     }
 }

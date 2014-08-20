@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Time"
+        android:key="pref_key_storage_settings">
+        <com.kptech.purduefoodcourts.app.Data.TimePreference
+            android:key="pref_key_time_picker"
+            android:summary="Choose time to check for favorites"
+            android:title="Time to Notify"
+            android:defaultValue="12:00"
+
+            />
+    </PreferenceCategory>
+    ...
+</PreferenceScreen>

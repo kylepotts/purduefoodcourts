@@ -68,12 +68,12 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         listView = (ListView) findViewById(R.id.left_drawer);
         ArrayList<String> drawerItems = new ArrayList<String>();
-        drawerItems.add("Ford");
-        drawerItems.add("Hillenbrand");
-        drawerItems.add("Wiley");
-        drawerItems.add("Windsor");
-        drawerItems.add("Earhart");
-        drawerItems.add("Favorites");
+        drawerItems.add(" Ford");
+        drawerItems.add(" Hillenbrand");
+        drawerItems.add(" Wiley");
+        drawerItems.add(" Windsor");
+        drawerItems.add(" Earhart");
+        drawerItems.add(" Favorites");
         listView.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, drawerItems));
         listView.setOnItemClickListener(this);
