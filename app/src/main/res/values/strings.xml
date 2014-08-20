@@ -6,5 +6,12 @@
     <string name="action_settings">Settings</string>
     <string name="carddemo_title_grid_gplay">Purdue Food Courts</string>
     <string name="favorites_name">Favorites</string>
+    <!--  Strings for possible PreferenceActivity Back/Next buttons -->
+    <string name="back_button_label">Back</string>
+    <string name="next_button_label">Next</string>
+
+    <!-- Optional button to Skip a PreferenceActivity [CHAR LIMIT=20] -->
+    <string name="skip_button_label">Skip</string>
+
 
 </resources>

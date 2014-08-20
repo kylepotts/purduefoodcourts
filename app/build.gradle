@@ -1,7 +1,14 @@
 apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+}
 dependencies {
     compile 'com.github.gabrielemariotti.cards:library:1.6.0'
     compile 'com.android.support:support-v4:20.0.+'
+    compile fileTree(dir: 'libs', include: '*.jar')
+
+
 }
 
 android {

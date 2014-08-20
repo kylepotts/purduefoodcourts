@@ -41,6 +41,11 @@
             android:label="Favorites Fragment"
             android:parentActivityName="com.kptech.purduefoodcourts.app.MainActivity" >
         </activity>
+        <activity
+            android:name="com.kptech.purduefoodcourts.app.Activities.SettingsActivity"
+            android:label="Settings Activity"
+            android:parentActivityName="com.kptech.purduefoodcourts.app.MainActivity" >
+        </activity>
         <service android:name=".Services.NotifyFavoritesService"
             android:enabled="true" />
 

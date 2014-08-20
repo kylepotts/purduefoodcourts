@@ -1,86 +1,55 @@
-package com.kptech.purduefoodcourts.app;
+package com.kptech.purduefoodcourts.app.Activities;
 
-import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 
-import com.kptech.purduefoodcourts.app.Activities.SettingsActivity;
-import com.kptech.purduefoodcourts.app.Fragments.CourtGridFragment;
+import com.kptech.purduefoodcourts.app.MainActivity;
+import com.kptech.purduefoodcourts.app.R;
 import com.kptech.purduefoodcourts.app.Receivers.NotifyFavoritesReceiver;
 
 import java.util.Calendar;
 import java.util.Random;
 
-
-public class MainActivity extends  Activity {
+/**
+ * Created by kyle on 8/20/14.
+ */
+public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setAlarm();
 
-
-    }
-
-    @Override
-    public void onStart(){
-        super.onStart();
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-       CourtGridFragment frag = new CourtGridFragment();
-        fragmentTransaction.replace(android.R.id.content, frag).commit();
+        // Load the preferences from an XML resource
+        addPreferencesFromResource(R.xml.prefs);
+        SharedPreferences sp = PreferenceManager
+                .getDefaultSharedPreferences(this);
+        sp.registerOnSharedPreferenceChangeListener(this);
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu items for use in the action bar
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.default_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d("OnSharedPrefChanged",key);
+        if(key.equals("pref_key_time_picker")){
+            setAlarm();
 
-        if (id == R.id.action_settings) {
-            Intent i = new Intent(this,SettingsActivity.class);
-            startActivity(i);
-
-            return true;
         }
-        return super.onOptionsItemSelected(item);
+
     }
 
-
-    public  int randInt(int min, int max) {
-
-        // Usually this can be a field rather than a method variable
-        Random rand = new Random();
-
-        // nextInt is normally exclusive of the top value,
-        // so add 1 to make it inclusive
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-
-        return randomNum;
-    }
-
-    public  void setAlarm(){
-        Intent myIntent = new Intent(MainActivity.this, NotifyFavoritesReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, myIntent, 0);
+    public void setAlarm(){
+        Intent myIntent = new Intent(this, NotifyFavoritesReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, myIntent, 0);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
@@ -115,7 +84,7 @@ public class MainActivity extends  Activity {
         calendar.set(Calendar.MINUTE,minPref);
 
 
-        Log.d("debug-time-to-notify",time);
+        Log.d("debug-time-to-notify", time);
 
 
         long _alarm;
@@ -140,5 +109,18 @@ public class MainActivity extends  Activity {
 
 
     }
+
+    public  int randInt(int min, int max) {
+
+        // Usually this can be a field rather than a method variable
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
+
 
 }

@@ -8,6 +8,7 @@
             android:summary="Choose time to check for favorites"
             android:title="Time to Notify"
             android:defaultValue="12:00"
+            android:persistent="true"
 
             />
     </PreferenceCategory>

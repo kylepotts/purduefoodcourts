@@ -57,12 +57,11 @@ public class TimePreference extends DialogPreference {
             lastMinute=picker.getCurrentMinute();
 
             String time=String.valueOf(lastHour)+":"+String.valueOf(lastMinute);
-            /*
+
             if (callChangeListener(time)) {
                 persistString(time);
             }
-            */
-            persistString(time);
+
         }
     }
 
