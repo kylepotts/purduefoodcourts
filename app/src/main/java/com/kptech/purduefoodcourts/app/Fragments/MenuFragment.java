@@ -45,14 +45,6 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
         super.onCreate(b);
         setContentView(R.layout.menu_fragment);
         String location = getIntent().getExtras().getString("Location");
-        /*
-        progressDialog = new ProgressDialog(this);
-        String message = "Fetching " + location + "'s Menu";
-        progressDialog.setMessage(message);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-        // CourtGridFragment.progressDialog.dismiss();
-        */
 
 
 

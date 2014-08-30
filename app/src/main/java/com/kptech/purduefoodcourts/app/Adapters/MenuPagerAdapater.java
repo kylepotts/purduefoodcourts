@@ -74,16 +74,23 @@ public class MenuPagerAdapater extends FragmentPagerAdapter implements OnMenuXml
 
         Log.d("PagerAdaper","createMenuList");
 
-        MenuListFragment test = new MenuListFragment();
+        MenuListFragment menuList = new MenuListFragment();
         Bundle args = new Bundle();
         args.putString("Location", location);
         args.putString("MealType",mealType);
         DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         String date = "/"+df.format(Calendar.getInstance().getTime());
         String mUrl = "http://api.hfs.purdue.edu/menus/v1/locations/"+location.toLowerCase()+date+"/";
+
+        // to check if we have the current menu for this location already cached
         boolean isCached = isUrlCached(location,mUrl);
 
         PurdueAPIParser apiParser = null;
+        /*
+            If the current menu is cached, load the xml for the menu from shared preferences and create an apiParser from the xml
+            Then create a new MenuListFragment and give it the apiParse, then the Fragment will display the menu instantly without
+            pulling it from the api site
+         */
         if(isCached){
             Log.d("menupger","data already cached");
             SharedPreferences settings = context.getSharedPreferences("fav",0);
@@ -94,18 +101,18 @@ public class MenuPagerAdapater extends FragmentPagerAdapter implements OnMenuXml
                 e.printStackTrace();
             }
             if(mealType.equals("Breakfast")){
-                test = new MenuListFragment(apiParser.getBreakfast(),context);
+                menuList = new MenuListFragment(apiParser.getBreakfast(),context);
             } else if (mealType.equals("Lunch")){
-                test = new MenuListFragment(apiParser.getLunch(),context);
+                menuList = new MenuListFragment(apiParser.getLunch(),context);
             } else {
-                test = new MenuListFragment(apiParser.getDinner(),context);
+                menuList = new MenuListFragment(apiParser.getDinner(),context);
             }
-            test.setArguments(args);
-            return test;
+            menuList.setArguments(args);
+            return menuList;
 
         } else {
-            test.setArguments(args);
-            return test;
+            menuList.setArguments(args);
+            return menuList;
         }
     }
 
@@ -127,9 +134,11 @@ public class MenuPagerAdapater extends FragmentPagerAdapter implements OnMenuXml
     }
 
     public boolean isUrlCached(String location,String url){
+        // Load the menu xml and the url used to retreieve it
         SharedPreferences settings = context.getSharedPreferences("fav",0);
         String lastUrl = settings.getString(location+"url",null);
         String xml = settings.getString(location+"data",null);
+        // if either or null, we have not cached the data so run a task and gets it and caches it
         if(lastUrl == null || xml == null){
             Log.d("pageradpater","url is null");
             SharedPreferences.Editor editor = settings.edit();
@@ -141,6 +150,8 @@ public class MenuPagerAdapater extends FragmentPagerAdapter implements OnMenuXml
             return false;
 
         } else {
+            // Now we have cached data, we need to compare the dates, we strip the date from the previous url we used
+            // and compare it with todays date
             String date = lastUrl.substring(lastUrl.length() - 10, lastUrl.length() - 1);
             Log.d("getfoodmenu", "lastUrlDate= " + date);
             DateTimeFormatter formatter = DateTimeFormat.forPattern("MM-dd-yyyy");
@@ -149,10 +160,10 @@ public class MenuPagerAdapater extends FragmentPagerAdapter implements OnMenuXml
             Duration duration = new Duration(prev,today);
             long daysBetween = duration.getStandardDays();
             Log.d("getfoodmenu","daysBetween= " + daysBetween);
+            // If there is greater than one day between the cached menu, then we need to recache the data
             if(daysBetween > 0){
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString(location+"url",url);
-                //editor.putString(location+"data",getXmlFormUrl(url));
                 GetMenuXmlTask task = new GetMenuXmlTask(url,location,this);
                 task.execute();
                 editor.commit();
@@ -168,7 +179,7 @@ public class MenuPagerAdapater extends FragmentPagerAdapter implements OnMenuXml
 
     }
 
-    public void cacheWithXml(String location, String xml){
+    public void cacheMenu(String location, String xml){
         DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
         String date = "/"+df.format(Calendar.getInstance().getTime());
         String mUrl = "http://api.hfs.purdue.edu/menus/v1/locations/"+location.toLowerCase()+date+"/";
@@ -184,7 +195,7 @@ public class MenuPagerAdapater extends FragmentPagerAdapter implements OnMenuXml
 
     @Override
     public void onMenuXmlReceived(String xmlResp, String location) {
-        cacheWithXml(location,xmlResp);
+        cacheMenu(location,xmlResp);
 
     }
 }
