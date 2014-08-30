@@ -20,6 +20,8 @@ import com.kptech.purduefoodcourts.app.Adapters.MenuPagerAdapater;
 import com.kptech.purduefoodcourts.app.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by kyle on 5/9/14.
@@ -30,19 +32,29 @@ public class MenuFragment extends FragmentActivity implements ListView.OnItemCli
     DrawerLayout drawerLayout;
     ListView listView;
     public static ProgressDialog progressDialog;
+    private HashMap<String,List<String>> hash;
+    private List<String> headers;
+
+    public MenuFragment(){
+
+    }
+
 
 
     public void onCreate(Bundle b){
         super.onCreate(b);
         setContentView(R.layout.menu_fragment);
         String location = getIntent().getExtras().getString("Location");
-
+        /*
         progressDialog = new ProgressDialog(this);
         String message = "Fetching " + location + "'s Menu";
         progressDialog.setMessage(message);
         progressDialog.setCancelable(false);
         progressDialog.show();
         // CourtGridFragment.progressDialog.dismiss();
+        */
+
+
 
         MenuPagerAdapater menuPagerAdapater = new MenuPagerAdapater(getSupportFragmentManager(),this, location);
         mViewPager = (ViewPager) findViewById(R.id.pager);

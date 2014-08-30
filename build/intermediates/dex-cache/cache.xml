@@ -14,6 +14,12 @@
         revision="19.1.0"
         sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
     <item
+        dex="/Users/kyle/Dev/Android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/classes-da14a9edc3eee4084f84a413311ab743cb7661cc.jar"
+        jar="/Users/kyle/Dev/Android/purduefoodcourts/app/build/intermediates/exploded-aar/net.danlew/android.joda/2.4.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="fbf3f2e9e9eb8c9aeb41977952ceb5f613c4baf1"/>
+    <item
         dex="/Users/kyle/Dev/Android/purduefoodcourts/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-9f6e7575878e22b9a0d3d6407c651dbac5af30eb.jar"
         jar="/Users/kyle/Dev/Android/purduefoodcourts/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"

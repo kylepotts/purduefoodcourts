@@ -18,6 +18,8 @@ import com.kptech.purduefoodcourts.app.Activities.SettingsActivity;
 import com.kptech.purduefoodcourts.app.Fragments.CourtGridFragment;
 import com.kptech.purduefoodcourts.app.Receivers.NotifyFavoritesReceiver;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import java.util.Calendar;
 import java.util.Random;
 
@@ -27,6 +29,7 @@ public class MainActivity extends  Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        JodaTimeAndroid.init(this);
         setAlarm();
 
 
