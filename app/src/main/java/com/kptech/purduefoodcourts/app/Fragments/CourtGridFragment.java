@@ -1,9 +1,13 @@
 package com.kptech.purduefoodcourts.app.Fragments;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -88,11 +92,17 @@ public class CourtGridFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initCards();
+
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if(!isNetworkAvailable()){
+            showNoNetworkAlert();
+
+
+        }
 
     }
 
@@ -167,5 +177,27 @@ public class CourtGridFragment extends BaseFragment {
         if (listView != null) {
             listView.setAdapter(mCardArrayAdapter);
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    public void showNoNetworkAlert(){
+        new AlertDialog.Builder(getActivity())
+                .setTitle("No Network Connection!")
+                .setMessage("This means no menus can be received, this app will now close")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                        getActivity().finish();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
     }
 }

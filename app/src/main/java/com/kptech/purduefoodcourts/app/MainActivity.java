@@ -4,14 +4,18 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.FragmentTransaction;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 import com.kptech.purduefoodcourts.app.Activities.SettingsActivity;
@@ -29,6 +33,7 @@ public class MainActivity extends  Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         JodaTimeAndroid.init(this);
         setAlarm();
 
@@ -134,14 +139,13 @@ public class MainActivity extends  Activity {
             _alarm = alarm.getTimeInMillis();
         }
 
-
-
-
         AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, _alarm,
                 AlarmManager.INTERVAL_DAY, pendingIntent);
 
 
     }
+
+
 
 }
