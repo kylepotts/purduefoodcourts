@@ -59,7 +59,7 @@ public class GetFoodMenuTask extends AsyncTask<Void,Void,Void> {
         Log.d("foodmenutask","caching data");
         SharedPreferences.Editor editor = activity.getSharedPreferences("fav",0).edit();
         editor.putString(location+"url",url);
-        editor.putString(location+"data",getXmlFormUrl(url));
+        editor.putString(location+"data",xml);
         editor.commit();
     }
 
@@ -73,16 +73,7 @@ public class GetFoodMenuTask extends AsyncTask<Void,Void,Void> {
                 if(cacheData){
                     cacheData(mUrl,getXmlFormUrl(mUrl),location);
                 }
-               // checkForLastUrlPulled(location,mUrl);
-                boolean isUrlCahced = isUrlCached(location,mUrl);
-                /*
-                String xml = null;
-                if(!isUrlCahced) {
-                    xml = getXmlFormUrl(mUrl);
-                } else {
-                    xml = activity.getSharedPreferences("favs",0).getString(location+"data",null);
-                }
-                */
+
                 String xml = getXmlFormUrl(mUrl);
                 PurdueAPIParser apiParser = null;
                 try {
@@ -104,39 +95,7 @@ public class GetFoodMenuTask extends AsyncTask<Void,Void,Void> {
 
     }
 
-    public boolean isUrlCached(String location,String url){
-        SharedPreferences settings = activity.getSharedPreferences("fav",0);
-        String lastUrl = settings.getString(location+"url",null);
-        if(lastUrl == null){
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString(location+"url",url);
-            editor.putString(location+"data",getXmlFormUrl(url));
-            editor.commit();
-            return false;
 
-        } else {
-            String date = lastUrl.substring(lastUrl.length()-10, lastUrl.length()-1);
-            Log.d("getfoodmenu","lastUrlDate= " + date);
-            DateTimeFormatter formatter = DateTimeFormat.forPattern("MM-dd-yyyy");
-            DateTime prev = formatter.parseDateTime(date);
-            DateTime today = new DateTime();
-            Duration duration = new Duration(prev,today);
-            long daysBetween = duration.getStandardDays();
-            Log.d("getfoodmenu","daysBetween= " + daysBetween);
-            if(daysBetween > 0){
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString(location+"url",url);
-                editor.putString(location+"data",getXmlFormUrl(url));
-                editor.commit();
-                return false;
-            } else {
-                return true;
-            }
-
-
-        }
-
-    }
 
 
     public String getXmlFormUrl(String url){

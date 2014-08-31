@@ -17,6 +17,7 @@ import android.widget.ExpandableListView;
 
 import com.kptech.purduefoodcourts.app.Data.APIResponse;
 import com.kptech.purduefoodcourts.app.Interfaces.OnFoodItemsReceivedHandler;
+import com.kptech.purduefoodcourts.app.PurdueAPIParser;
 import com.kptech.purduefoodcourts.app.R;
 import com.kptech.purduefoodcourts.app.tasks.GetFoodMenuTask;
 
@@ -25,6 +26,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.lang.reflect.AccessibleObject;
@@ -38,28 +40,9 @@ import android.widget.TextView;
 public class MenuListFragment extends ListFragment implements OnFoodItemsReceivedHandler  {
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
-    private ProgressDialog progressDialog;
-    private APIResponse r;
-    boolean hasAdapter;
     private Activity menuFragAct;
 
-    public MenuListFragment(){
-        hasAdapter = false;
 
-    }
-
-    /*
-        Constructor for if item has been cached already
-     */
-
-    public MenuListFragment(APIResponse r,Activity menuFragAct){
-        this.r = r;
-        this.menuFragAct = menuFragAct;
-        listAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(menuFragAct,r.getList(),r.getHash());
-        hasAdapter = true;
-
-
-    }
 
 
     public View onCreateView(LayoutInflater inflater,
@@ -73,13 +56,33 @@ public class MenuListFragment extends ListFragment implements OnFoodItemsReceive
 
         String location = args.getString("Location");
         String mealType = args.getString("MealType");
+        String xml = args.getString("xml",null);
+
 
 
 
         expListView = (ExpandableListView) rootView.findViewById(android.R.id.list);
 
         // If we have an adapter, we need to set it
-        if(hasAdapter){
+        if(xml != null){
+            Log.d("menuListFrag","xml is not null");
+            PurdueAPIParser purdueAPIParser = null;
+            try {
+                purdueAPIParser = new PurdueAPIParser(xml);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            APIResponse response;
+            if(location.equals("Breakfast")){
+                response = purdueAPIParser.getBreakfast();
+            } else if (location.equals("Lunch")){
+                response = purdueAPIParser.getLunch();
+            } else {
+                response = purdueAPIParser.getDinner();
+            }
+            final com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter expandableListAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),response.getList(),response.getHash());
+            listAdapter = expandableListAdapter;
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -96,7 +99,7 @@ public class MenuListFragment extends ListFragment implements OnFoodItemsReceive
 
         }
         GetFoodMenuTask task = null;
-        if(hasAdapter) {
+        if(xml != null) {
 
              task = new GetFoodMenuTask(getActivity(), location, mealType, false,this);
         } else {
@@ -134,8 +137,14 @@ public class MenuListFragment extends ListFragment implements OnFoodItemsReceive
                                     editor.putStringSet("favorites",hSet);
                                 } else {
                                     Log.d("debug-fav","set is not empty adding item");
-                                    set.add(foodItem);
-                                    editor.putStringSet("favorites",set);
+                                    List<String> favListCopy = new ArrayList<String>();
+                                    Set<String> favoritesCopy = new HashSet<String>();
+                                    for(String s: set){
+                                        favListCopy.add(s);
+                                    }
+                                    favListCopy.add(foodItem);
+                                    favoritesCopy.addAll(favListCopy);
+                                    editor.putStringSet("favorites",favoritesCopy);
 
                                 }
 

@@ -22,6 +22,8 @@ import com.kptech.purduefoodcourts.app.Adapters.MenuPagerAdapater;
 import com.kptech.purduefoodcourts.app.R;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import it.gmariotti.cardslib.library.internal.Card;
@@ -35,6 +37,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
  */
 public class FavoritesFragment extends FragmentActivity implements CardHeader.OnClickCardHeaderPopupMenuListener, Card.OnSwipeListener, Card.OnUndoSwipeListListener {
     private CardArrayAdapter mCardArrayAdapter;
+    public static String TAG = "FavoritesFragment";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,17 +132,21 @@ public class FavoritesFragment extends FragmentActivity implements CardHeader.On
 
 
     public void deleteFavorite(String fav) {
+        Log.d(TAG,"Deleting favorites " + fav);
         SharedPreferences prefs = getSharedPreferences("fav", 0);
         SharedPreferences.Editor editor = prefs.edit();
         Set<String> favorites = prefs.getStringSet("favorites", null);
-        String favInSet = null;
+
+       List<String> favListCopy = new ArrayList<String>();
+        Set<String> favoritesCopy = new HashSet<String>();
         for(String s: favorites){
-            if(s.equals(fav)){
-                favInSet = s;
+            if(!s.equals(fav)){
+                favListCopy.add(s);
             }
         }
-        favorites.remove(favInSet);
-        editor.putStringSet("favorites",favorites);
+        favoritesCopy.addAll(favListCopy);
+
+        editor.putStringSet("favorites",favoritesCopy);
         editor.commit();
     }
 
@@ -147,8 +154,15 @@ public class FavoritesFragment extends FragmentActivity implements CardHeader.On
         SharedPreferences prefs = getSharedPreferences("fav", 0);
         SharedPreferences.Editor editor = prefs.edit();
         Set<String> favorites = prefs.getStringSet("favorites", null);
-        favorites.add(fav);
-        editor.putStringSet("favorites",favorites);
+
+        List<String> favListCopy = new ArrayList<String>();
+        Set<String> favoritesCopy = new HashSet<String>();
+        for(String s: favorites){
+            favListCopy.add(s);
+        }
+        favListCopy.add(fav);
+        favoritesCopy.addAll(favListCopy);
+        editor.putStringSet("favorites",favoritesCopy);
         editor.commit();
 
     }

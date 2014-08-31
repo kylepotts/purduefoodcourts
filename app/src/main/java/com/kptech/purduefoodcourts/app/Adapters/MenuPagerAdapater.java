@@ -101,11 +101,12 @@ public class MenuPagerAdapater extends FragmentPagerAdapter implements OnMenuXml
                 e.printStackTrace();
             }
             if(mealType.equals("Breakfast")){
-                menuList = new MenuListFragment(apiParser.getBreakfast(),context);
+                args.putString("xml",xml);
+                menuList = new MenuListFragment();
             } else if (mealType.equals("Lunch")){
-                menuList = new MenuListFragment(apiParser.getLunch(),context);
+                menuList = new MenuListFragment();
             } else {
-                menuList = new MenuListFragment(apiParser.getDinner(),context);
+                menuList = new MenuListFragment();
             }
             menuList.setArguments(args);
             return menuList;
