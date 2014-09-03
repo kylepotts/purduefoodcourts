@@ -60,31 +60,32 @@ public class GetFoodMenuTask extends AsyncTask<Void,Void,Void> {
 
 
     public APIResponse getMenu(final String location, final String mealType){
-                APIResponse response = null;
-                DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-                String date = "/"+df.format(Calendar.getInstance().getTime());
-                String mUrl = "http://api.hfs.purdue.edu/menus/v1/locations/"+location.toLowerCase()+date+"/";
-                Log.d("debug-url", mUrl);
-                if(cacheData){
-                    cacheData(mUrl,getXmlFormUrl(mUrl),location);
-                }
+        APIResponse response = null;
+        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+        String date = "/"+df.format(Calendar.getInstance().getTime());
+        String mUrl = "http://api.hfs.purdue.edu/menus/v1/locations/"+location.toLowerCase()+date+"/";
+        Log.d("debug-url", mUrl);
+        if(cacheData){
+            cacheData(mUrl,getXmlFromUrl(mUrl),location);
+        }
 
-                String xml = getXmlFormUrl(mUrl);
-                PurdueAPIParser apiParser = null;
-                try {
-                    apiParser = new PurdueAPIParser(xml);
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-                if(mealType == "Breakfast"){
-                    response = apiParser.getBreakfast();
-                } else if (mealType == "Lunch"){
-                    response = apiParser.getLunch();
-                } else if (mealType == "Dinner") {
-                    response = apiParser.getDinner();
-                }
+        String xml = getXmlFromUrl(mUrl);
+        PurdueAPIParser apiParser = null;
+        try {
+            apiParser = new PurdueAPIParser(xml);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        
+        if(mealType == "Breakfast"){
+            response = apiParser.getBreakfast();
+        }else if (mealType == "Lunch"){
+            response = apiParser.getLunch();
+        }else if (mealType == "Dinner") {
+            response = apiParser.getDinner();
+        }
 
-                return response;
+        return response;
 
 
 
@@ -93,7 +94,7 @@ public class GetFoodMenuTask extends AsyncTask<Void,Void,Void> {
 
 
 
-    public String getXmlFormUrl(String url){
+    public String getXmlFromUrl(String url){
         HttpClient client = new DefaultHttpClient();
         HttpGet get = new HttpGet(url);
         String responseString = null;

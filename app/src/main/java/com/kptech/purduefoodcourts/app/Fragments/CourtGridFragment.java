@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.kptech.purduefoodcourts.app.R;
-import com.kptech.purduefoodcourts.app.cards.courtGridCard;
+import com.kptech.purduefoodcourts.app.cards.CourtGridCard;
 
 import java.util.ArrayList;
 
@@ -82,7 +82,7 @@ public class CourtGridFragment extends BaseFragment {
         for (int i = 0; i < 6; i++) {
 
             // GplayGridCard card = new GplayGridCard(getActivity());
-            courtGridCard card = new courtGridCard(getActivity());
+            CourtGridCard card = new CourtGridCard(getActivity());
             final String courtName;
 
             switch (i) {

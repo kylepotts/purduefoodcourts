@@ -10,7 +10,7 @@ import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardHeader;
 import it.gmariotti.cardslib.library.internal.CardThumbnail;
 
-public class courtGridCard extends Card {
+public class CourtGridCard extends Card {
 
     protected TextView mTitle;
     protected TextView mSecondaryTitle;
@@ -22,12 +22,12 @@ public class courtGridCard extends Card {
     protected String secondaryTitle;
     protected float rating;
 
-    public courtGridCard(Context context) {
+    public CourtGridCard(Context context) {
         super(context, R.layout.court_card_inner_content);
 
     }
 
-    public courtGridCard(Context context, int innerLayout) {
+    public CourtGridCard(Context context, int innerLayout) {
         super(context, innerLayout);
     }
 

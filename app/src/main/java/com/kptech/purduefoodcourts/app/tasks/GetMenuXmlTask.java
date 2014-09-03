@@ -28,7 +28,7 @@ public class GetMenuXmlTask extends AsyncTask<Void,Void,Void> {
     }
     @Override
     protected Void doInBackground(Void... voids) {
-        String response = getXmlFormUrl();
+        String response = getXmlFromUrl();
         if(handler != null){
             handler.onMenuXmlReceived(response,location);
         }
@@ -36,7 +36,7 @@ public class GetMenuXmlTask extends AsyncTask<Void,Void,Void> {
         return null;
     }
 
-    public String getXmlFormUrl(){
+    public String getXmlFromUrl(){
         HttpClient client = new DefaultHttpClient();
         HttpGet get = new HttpGet(url);
         String responseString = null;
