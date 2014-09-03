@@ -1,4 +1,4 @@
-package com.kptech.purduefoodcourts.app.Fragments;
+package com.kptech.purduefoodcourts.app.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -15,8 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.kptech.purduefoodcourts.app.Activities.SettingsActivity;
-import com.kptech.purduefoodcourts.app.Adapters.MenuPagerAdapater;
+import com.kptech.purduefoodcourts.app.activities.SettingsActivity;
+import com.kptech.purduefoodcourts.app.adapters.MenuPagerAdapater;
 import com.kptech.purduefoodcourts.app.R;
 
 import java.util.ArrayList;

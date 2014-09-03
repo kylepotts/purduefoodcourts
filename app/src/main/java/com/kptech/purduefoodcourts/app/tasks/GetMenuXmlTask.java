@@ -2,7 +2,7 @@ package com.kptech.purduefoodcourts.app.tasks;
 
 import android.os.AsyncTask;
 
-import com.kptech.purduefoodcourts.app.Interfaces.OnMenuXmlReceivedHandler;
+import com.kptech.purduefoodcourts.app.interfaces.OnMenuXmlReceivedHandler;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

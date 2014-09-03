@@ -1,17 +1,13 @@
 package com.kptech.purduefoodcourts.app;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.util.Log;
 
-import com.kptech.purduefoodcourts.app.Data.APIResponse;
+import com.kptech.purduefoodcourts.app.data.APIResponse;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

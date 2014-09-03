@@ -1,4 +1,4 @@
-package com.kptech.purduefoodcourts.app.Fragments;
+package com.kptech.purduefoodcourts.app.fragments;
 
 /*
  * ******************************************************************************
@@ -22,9 +22,6 @@ package com.kptech.purduefoodcourts.app.Fragments;
 
         import android.app.Fragment;
         import android.os.Bundle;
-        import android.support.v4.app.NavUtils;
-        import android.view.MenuItem;
-
 
 
 /**

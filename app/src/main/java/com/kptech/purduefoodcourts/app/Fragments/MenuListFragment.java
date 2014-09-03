@@ -1,8 +1,7 @@
-package com.kptech.purduefoodcourts.app.Fragments;
+package com.kptech.purduefoodcourts.app.fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,8 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 
-import com.kptech.purduefoodcourts.app.Data.APIResponse;
-import com.kptech.purduefoodcourts.app.Interfaces.OnFoodItemsReceivedHandler;
+import com.kptech.purduefoodcourts.app.data.APIResponse;
+import com.kptech.purduefoodcourts.app.interfaces.OnFoodItemsReceivedHandler;
 import com.kptech.purduefoodcourts.app.PurdueAPIParser;
 import com.kptech.purduefoodcourts.app.R;
 import com.kptech.purduefoodcourts.app.tasks.GetFoodMenuTask;
@@ -29,7 +28,6 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.lang.reflect.AccessibleObject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -81,7 +79,7 @@ public class MenuListFragment extends ListFragment implements OnFoodItemsReceive
             } else {
                 response = purdueAPIParser.getDinner();
             }
-            final com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter expandableListAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),response.getList(),response.getHash());
+            final com.kptech.purduefoodcourts.app.adapters.ExpandableListAdapter expandableListAdapter = new com.kptech.purduefoodcourts.app.adapters.ExpandableListAdapter(getActivity(),response.getList(),response.getHash());
             listAdapter = expandableListAdapter;
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -191,7 +189,7 @@ public class MenuListFragment extends ListFragment implements OnFoodItemsReceive
 
 
 
-        listAdapter = new com.kptech.purduefoodcourts.app.Adapters.ExpandableListAdapter(getActivity(),r.getList(),r.getHash());
+        listAdapter = new com.kptech.purduefoodcourts.app.adapters.ExpandableListAdapter(getActivity(),r.getList(),r.getHash());
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {

@@ -1,34 +1,21 @@
-package com.kptech.purduefoodcourts.app.Services;
+package com.kptech.purduefoodcourts.app.services;
 
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-import com.kptech.purduefoodcourts.app.Data.APIResponse;
-import com.kptech.purduefoodcourts.app.Data.NotifyFavoritesItem;
-import com.kptech.purduefoodcourts.app.Fragments.CourtGridFragment;
-import com.kptech.purduefoodcourts.app.Interfaces.OnFoodItemsReceivedHandler;
-import com.kptech.purduefoodcourts.app.Interfaces.OnMenuXmlReceivedHandler;
-import com.kptech.purduefoodcourts.app.MainActivity;
+import com.kptech.purduefoodcourts.app.data.APIResponse;
+import com.kptech.purduefoodcourts.app.data.NotifyFavoritesItem;
+import com.kptech.purduefoodcourts.app.interfaces.OnMenuXmlReceivedHandler;
 import com.kptech.purduefoodcourts.app.PurdueAPIParser;
 import com.kptech.purduefoodcourts.app.R;
 import com.kptech.purduefoodcourts.app.tasks.GetMenuXmlTask;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,10 +24,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.app.NotificationCompat.WearableExtender;
 
 /**
  * Created by kyle on 8/2/14.

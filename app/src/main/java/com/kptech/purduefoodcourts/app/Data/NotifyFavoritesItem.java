@@ -1,4 +1,4 @@
-package com.kptech.purduefoodcourts.app.Data;
+package com.kptech.purduefoodcourts.app.data;
 
 /**
  * Created by kyle on 8/14/14.

@@ -1,4 +1,4 @@
-package com.kptech.purduefoodcourts.app.Adapters;
+package com.kptech.purduefoodcourts.app.adapters;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -9,26 +9,18 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.widget.*;
 
-import com.kptech.purduefoodcourts.app.Data.APIResponse;
-import com.kptech.purduefoodcourts.app.Fragments.MenuListFragment;
-import com.kptech.purduefoodcourts.app.Interfaces.OnFoodItemsReceivedHandler;
-import com.kptech.purduefoodcourts.app.Interfaces.OnMenuXmlReceivedHandler;
+import com.kptech.purduefoodcourts.app.fragments.MenuListFragment;
+import com.kptech.purduefoodcourts.app.interfaces.OnMenuXmlReceivedHandler;
 import com.kptech.purduefoodcourts.app.PurdueAPIParser;
 import com.kptech.purduefoodcourts.app.tasks.GetMenuXmlTask;
 
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.json.JSONException;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -1,32 +1,24 @@
-package com.kptech.purduefoodcourts.app.Fragments;
+package com.kptech.purduefoodcourts.app.fragments;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
-import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.kptech.purduefoodcourts.app.R;
-import com.kptech.purduefoodcourts.app.Cards.courtGridCard;
+import com.kptech.purduefoodcourts.app.cards.courtGridCard;
 
 import java.util.ArrayList;
 
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardGridView;
 
 /*
@@ -46,28 +38,6 @@ import it.gmariotti.cardslib.library.view.CardGridView;
  *   limitations under the License.
  *  *****************************************************************************
  */
-
-
-import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RatingBar;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.kptech.purduefoodcourts.app.R;
-
-import java.util.ArrayList;
-import it.gmariotti.cardslib.library.internal.Card;
-import it.gmariotti.cardslib.library.internal.CardGridArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
-import it.gmariotti.cardslib.library.internal.base.BaseCard;
-import it.gmariotti.cardslib.library.view.CardGridView;
 
 
 public class CourtGridFragment extends BaseFragment {

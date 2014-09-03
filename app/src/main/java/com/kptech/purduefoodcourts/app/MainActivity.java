@@ -4,23 +4,19 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.FragmentTransaction;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 
-import com.kptech.purduefoodcourts.app.Activities.SettingsActivity;
-import com.kptech.purduefoodcourts.app.Fragments.CourtGridFragment;
-import com.kptech.purduefoodcourts.app.Receivers.NotifyFavoritesReceiver;
+import com.kptech.purduefoodcourts.app.activities.SettingsActivity;
+import com.kptech.purduefoodcourts.app.fragments.CourtGridFragment;
+import com.kptech.purduefoodcourts.app.receivers.NotifyFavoritesReceiver;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 

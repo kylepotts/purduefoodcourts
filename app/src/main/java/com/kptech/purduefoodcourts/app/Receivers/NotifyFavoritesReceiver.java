@@ -1,10 +1,10 @@
-package com.kptech.purduefoodcourts.app.Receivers;
+package com.kptech.purduefoodcourts.app.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.kptech.purduefoodcourts.app.Services.NotifyFavoritesService;
+import com.kptech.purduefoodcourts.app.services.NotifyFavoritesService;
 
 /**
  * Created by kyle on 8/2/14.

@@ -1,4 +1,4 @@
-package com.kptech.purduefoodcourts.app.Data;
+package com.kptech.purduefoodcourts.app.data;
 
 import java.util.HashMap;
 import java.util.List;

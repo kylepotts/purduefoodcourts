@@ -1,24 +1,15 @@
-package com.kptech.purduefoodcourts.app.Fragments;
+package com.kptech.purduefoodcourts.app.fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import com.kptech.purduefoodcourts.app.Activities.SettingsActivity;
-import com.kptech.purduefoodcourts.app.Adapters.MenuPagerAdapater;
+import com.kptech.purduefoodcourts.app.activities.SettingsActivity;
 import com.kptech.purduefoodcourts.app.R;
 
 import java.util.ArrayList;

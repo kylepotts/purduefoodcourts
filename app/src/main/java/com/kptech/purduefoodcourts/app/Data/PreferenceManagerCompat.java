@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kptech.purduefoodcourts.app.Data;
+package com.kptech.purduefoodcourts.app.data;
 
 import android.app.Activity;
 import android.content.Context;

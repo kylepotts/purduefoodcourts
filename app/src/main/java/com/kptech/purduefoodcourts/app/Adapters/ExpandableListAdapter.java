@@ -1,4 +1,4 @@
-package com.kptech.purduefoodcourts.app.Adapters;
+package com.kptech.purduefoodcourts.app.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;

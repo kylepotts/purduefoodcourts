@@ -5,8 +5,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.kptech.purduefoodcourts.app.Data.APIResponse;
-import com.kptech.purduefoodcourts.app.Interfaces.OnFoodItemsReceivedHandler;
+import com.kptech.purduefoodcourts.app.data.APIResponse;
+import com.kptech.purduefoodcourts.app.interfaces.OnFoodItemsReceivedHandler;
 import com.kptech.purduefoodcourts.app.PurdueAPIParser;
 
 import org.apache.http.HttpResponse;
@@ -14,16 +14,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
-import org.joda.time.Duration;
 
 /**
  * Created by kyle on 8/2/14.

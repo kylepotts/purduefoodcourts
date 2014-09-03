@@ -3,7 +3,7 @@
     <PreferenceCategory
         android:title="Time"
         android:key="pref_key_storage_settings">
-        <com.kptech.purduefoodcourts.app.Data.TimePreference
+        <com.kptech.purduefoodcourts.app.data.TimePreference
             android:key="pref_key_time_picker"
             android:summary="Choose time to check for favorites"
             android:title="Time to Notify"

@@ -1,6 +1,6 @@
-package com.kptech.purduefoodcourts.app.Interfaces;
+package com.kptech.purduefoodcourts.app.interfaces;
 
-import com.kptech.purduefoodcourts.app.Data.APIResponse;
+import com.kptech.purduefoodcourts.app.data.APIResponse;
 
 /**
  * Created by kyle on 8/2/14.

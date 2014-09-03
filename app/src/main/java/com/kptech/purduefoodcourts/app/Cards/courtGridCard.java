@@ -1,4 +1,4 @@
-package com.kptech.purduefoodcourts.app.Cards;
+package com.kptech.purduefoodcourts.app.cards;
 
 import android.content.Context;
 import android.view.View;
